@@ -1,0 +1,37 @@
+<form class="user-input"
+  #userInputForm="ngForm"
+  (ngSubmit)="onSubmit(userInputForm)">
+  <div class="user-input__integral-form">
+    <div class="user-input__integral-icon-wrapper">
+      <mat-form-field class="user-input__to-input-wrapper">
+        <input matInput
+          placeholder="До"
+          [(ngModel)]="to"
+          type="number"
+          name="to">
+      </mat-form-field>
+      <div class="user-input__integral-icon">
+        ∫
+      </div>
+      <mat-form-field class="user-input__from-input-wrapper">
+        <input matInput
+          placeholder="Від"
+          value="0"
+          [(ngModel)]="from"
+          type="number"
+          name="from">
+      </mat-form-field>
+    </div>
+    <div class="user-input__formula">
+      <mat-form-field class="user-input__integral-input-wrapper">
+        <input matInput
+          placeholder="Інтеграл"
+          [(ngModel)]="formula"
+          name="formula">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="user-input__submit-wrapper">
+    <button type="submit" mat-raised-button color="primary">Порахувати</button>
+  </div>
+</form>
