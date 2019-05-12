@@ -1,4 +1,7 @@
 <main class="app">
+  <h1 class="app__title">
+    Наближений калькулятор визначеного інтегралу
+  </h1>
   <app-user-input (submit)="onSubmit($event)"></app-user-input>
   <div *ngIf="displayResult">
     Результат: {{result | number}}

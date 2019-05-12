@@ -14,10 +14,11 @@ import { Integral } from '@app/entities';
 })
 export class UserInputComponent {
 
-  @Output() public submit = new EventEmitter<Integral>();
+  @Output() public submit = new EventEmitter<[Integral, number]>();
 
   public from = '0';
   public to = '1';
+  public n = '10';
   public formula = 'x';
 
   public onSubmit(evt: Event, form: NgForm): void {
@@ -27,9 +28,11 @@ export class UserInputComponent {
     const integral: Integral =  {
       from: Number(from),
       to: Number(to),
-      formula
+      formula,
     };
 
-    this.submit.emit(integral);
+    const n: number = Number(this.n);
+
+    this.submit.emit([integral, n]);
   }
 }

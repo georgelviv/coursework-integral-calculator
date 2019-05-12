@@ -1,7 +1,12 @@
 .app {
-  padding: 100px 30px;
+  padding: 10px 25px;
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
   max-width: 800px;
+  &__title {
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 28px;
+  }
 }

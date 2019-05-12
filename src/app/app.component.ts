@@ -23,11 +23,11 @@ export class AppComponent implements OnDestroy {
 
   }
 
-  public onSubmit(integral: Integral): void {
+  public onSubmit([integral, n]: [Integral, number]): void {
     this.isCounting = true;
 
     const calculationSubscription: Subscription = this.integralCalculatorService
-      .$calcRiemannSum(integral)
+      .$calcRiemannSum(integral, n)
       .subscribe((result) => {
         this.result = result;
         this.isCounting = false;

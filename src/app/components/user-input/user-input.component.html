@@ -5,6 +5,7 @@
     <div class="user-input__integral-icon-wrapper">
       <mat-form-field class="user-input__to-input-wrapper">
         <input matInput
+          required
           placeholder="До"
           [(ngModel)]="to"
           type="number"
@@ -16,6 +17,7 @@
       <mat-form-field class="user-input__from-input-wrapper">
         <input matInput
           placeholder="Від"
+          required
           value="0"
           [(ngModel)]="from"
           type="number"
@@ -24,14 +26,32 @@
     </div>
     <div class="user-input__formula">
       <mat-form-field class="user-input__integral-input-wrapper">
-        <input matInput
+        <input
+          matInput
+          required
+          name="formula"
           placeholder="Інтеграл"
-          [(ngModel)]="formula"
-          name="formula">
+          [(ngModel)]="formula">
       </mat-form-field>
     </div>
   </div>
+  <div class="user-input__options-wrapper">
+    <mat-form-field class="user-input__n-input-wrapper">
+      <input matInput
+        required
+        placeholder="n"
+        [(ngModel)]="n"
+        type="number"
+        name="n">
+    </mat-form-field>
+  </div>
   <div class="user-input__submit-wrapper">
-    <button type="submit" mat-raised-button color="primary">Порахувати</button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="!userInputForm.valid">
+      Порахувати
+    </button>
   </div>
 </form>
