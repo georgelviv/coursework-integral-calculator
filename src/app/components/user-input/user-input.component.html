@@ -1,6 +1,6 @@
 <form class="user-input"
   #userInputForm="ngForm"
-  (ngSubmit)="onSubmit(userInputForm)">
+  (ngSubmit)="onSubmit($event, userInputForm)">
   <div class="user-input__integral-form">
     <div class="user-input__integral-icon-wrapper">
       <mat-form-field class="user-input__to-input-wrapper">

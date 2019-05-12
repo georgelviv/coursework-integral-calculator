@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Integral } from '@app/entities';
+import { IntegralCalculatorService } from '@app/services';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'integralCalculator';
+
+  public result: number;
+
+  constructor(
+    private integralCalculatorService: IntegralCalculatorService
+  ) {}
+
+  public onSubmit(integral: Integral): void {
+    this.result = this.integralCalculatorService.calcRiemannSum(integral);
+  }
 }

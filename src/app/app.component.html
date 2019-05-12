@@ -1,3 +1,6 @@
 <main class="app">
-  <app-user-input></app-user-input>
+  <app-user-input (submit)="onSubmit($event)"></app-user-input>
+  <div *ngIf="result">
+    Результат: {{result | number}}
+  </div>
 </main>
