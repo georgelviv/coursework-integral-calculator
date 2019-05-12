@@ -1,11 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Integral } from '@app/entities';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IntegralCalculatorService {
-  public calcRiemannSum(integral: Integral, n = 10000): number {
+  public $calcRiemannSum(integral: Integral, n = 100): Observable<number> {
+    return new Observable((observer) => {
+      const cb = setTimeout(() => {
+        const result = this.calcRiemannSum(integral, n);
+        observer.next(result);
+        observer.complete();
+      });
+
+      return () => {
+        clearInterval(cb);
+      }
+    });
+  }
+
+  private calcRiemannSum(integral: Integral, n = 10000): number {
     const { from, to, formula } = integral;
 
     let s = 0;

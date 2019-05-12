@@ -29,6 +29,7 @@ export class UserInputComponent {
       to: Number(to),
       formula
     };
+
     this.submit.emit(integral);
   }
 }

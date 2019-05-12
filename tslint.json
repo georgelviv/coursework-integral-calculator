@@ -82,6 +82,7 @@
       "check-separator",
       "check-preblock",
       "check-postbrace"
-    ]
+    ],
+    "arrow-parens": true
   }
 }
