@@ -1,6 +1,6 @@
 <form class="user-input"
   #userInputForm="ngForm"
-  (ngSubmit)="onSubmit($event, userInputForm)">
+  (ngSubmit)="onSubmit($event)">
   <div class="user-input__integral-form">
     <div class="user-input__integral-icon-wrapper">
       <mat-form-field class="user-input__to-input-wrapper">
@@ -25,13 +25,17 @@
       </mat-form-field>
     </div>
     <div class="user-input__formula">
-      <mat-form-field class="user-input__integral-input-wrapper">
+      <mat-form-field
+        class="user-input__integral-input-wrapper">
         <input
           matInput
+          [formControl]="formulaFormControl"
           required
           name="formula"
-          placeholder="Інтеграл"
-          [(ngModel)]="formula">
+          placeholder="Інтеграл">
+          <mat-error *ngIf="formulaFormControl.hasError('invalidFormula')">
+            Упс, я ще не вмію таке рахувати
+          </mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -50,7 +54,7 @@
       mat-raised-button
       type="submit"
       color="primary"
-      [disabled]="!userInputForm.valid">
+      [disabled]="isDisabledSubmit">
       Порахувати
     </button>
   </div>

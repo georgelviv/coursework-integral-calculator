@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class IntegralCalculatorService {
+
   public $calcRiemannSum(integral: Integral, n = 100): Observable<number> {
     return new Observable((observer) => {
       const cb = setTimeout(() => {
@@ -16,7 +17,7 @@ export class IntegralCalculatorService {
 
       return () => {
         clearInterval(cb);
-      }
+      };
     });
   }
 
@@ -40,6 +41,9 @@ export class IntegralCalculatorService {
   }
 
   private normalizeFormula(formula, x): string {
-    return formula.replace(/x/gi, x);
+    return formula
+      .replace(/\s/gi, '')
+      .replace(/x/gi, x)
+      .replace(/0\/0/g, 0);
   }
 }

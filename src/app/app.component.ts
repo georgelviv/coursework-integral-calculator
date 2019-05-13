@@ -20,7 +20,9 @@ export class AppComponent implements OnDestroy {
   ) {}
 
   public ngOnDestroy(): void {
-
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   public onSubmit([integral, n]: [Integral, number]): void {
