@@ -2,11 +2,13 @@
   <h1 class="app__title">
     Наближений калькулятор визначеного інтегралу
   </h1>
-  <app-user-input (submit)="onSubmit($event)"></app-user-input>
-  <div *ngIf="displayResult">
-    Результат: {{result | number}}
-  </div>
-  <div *ngIf="isCounting">
-    Рахуємо
-  </div>
+  <mat-card class="app__input-wrapper">
+    <app-user-input (submit)="onSubmit($event)"></app-user-input>
+  </mat-card>
+  <mat-card>
+    <app-results-output
+      [integral]="integral"
+      [integralOptions]="integralOptions">
+    </app-results-output>
+  </mat-card>
 </main>

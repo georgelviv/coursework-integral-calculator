@@ -48,6 +48,16 @@
         type="number"
         name="n">
     </mat-form-field>
+    <mat-form-field class="user-input__integral-method-wrapper">
+      <mat-label>Спосіб обчислення</mat-label>
+      <mat-select [(ngModel)]="integralMethod" name="integralMethod">
+        <mat-option
+          *ngFor="let integralMethod of integralMethods"
+          [value]="integralMethod">
+          {{integralMethodsTranslations[integralMethod]}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="user-input__submit-wrapper">
     <button

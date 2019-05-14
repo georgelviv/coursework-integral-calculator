@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import {
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSelectModule,
+  MatCardModule
 } from '@angular/material';
 
 const MATERIAL_MODULES: any[] = [
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSelectModule,
+  MatCardModule
 ];
 
 @NgModule({

@@ -5,9 +5,14 @@ import {
   ViewChild,
   OnInit
 } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
-import { Integral } from '@app/entities';
+import {
+  Integral,
+  IntegralMethods,
+  IntegralMethod,
+  IntegralOptions
+} from '@app/entities';
 import { ValidateFormula } from '@app/validators';
 
 @Component({
@@ -17,7 +22,7 @@ import { ValidateFormula } from '@app/validators';
 })
 export class UserInputComponent implements OnInit {
 
-  @Output() public submit = new EventEmitter<[Integral, number]>();
+  @Output() public submit = new EventEmitter<[Integral, IntegralOptions]>();
 
   @ViewChild('userInputForm') form;
 
@@ -25,6 +30,13 @@ export class UserInputComponent implements OnInit {
   public to = '1';
   public n = '10';
   public formulaFormControl: FormControl;
+  public integralMethods = IntegralMethods;
+  public integralMethod: IntegralMethod = IntegralMethod.RiemannSum;
+
+  public integralMethodsTranslations: { [key: string]: string } = {
+    [IntegralMethod.RiemannSum]: 'Метод прямокутників',
+    [IntegralMethod.TrapezoidalRule]: 'Метод трапецій'
+  };
 
   public ngOnInit(): void {
     this.formulaFormControl = new FormControl('x', [
@@ -33,7 +45,7 @@ export class UserInputComponent implements OnInit {
     ]);
   }
 
-  public onSubmit(evt: Event, form: NgForm): void {
+  public onSubmit(evt: Event): void {
     evt.stopPropagation();
 
     const integral: Integral =  {
@@ -42,8 +54,12 @@ export class UserInputComponent implements OnInit {
       formula: this.formulaFormControl.value,
     };
     const n: number = Number(this.n);
+    const integralOptions: IntegralOptions = {
+      n: Number(this.n),
+      method: this.integralMethod
+    };
 
-    this.submit.emit([integral, n]);
+    this.submit.emit([integral, integralOptions]);
   }
 
   public get isDisabledSubmit(): boolean {

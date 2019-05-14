@@ -1,11 +1,16 @@
 import {
   UserInputComponent
 } from './user-input';
+import {
+  ResultsOutputComponent
+} from './results-output';
 
 export const APP_COMPONENTS: any[] = [
-  UserInputComponent
+  UserInputComponent,
+  ResultsOutputComponent
 ];
 
 export {
-  UserInputComponent
+  UserInputComponent,
+  ResultsOutputComponent
 };

@@ -1,6 +1,6 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
 
-const checkFormulaRegEx = /[^x+\-/* ]/gi;
+const checkFormulaRegEx = /[^x+\-/* \d]/gi;
 
 export function ValidateFormula(): ValidatorFn {
   return (control: FormControl) => {
