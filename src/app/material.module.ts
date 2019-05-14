@@ -3,14 +3,18 @@ import {
   MatInputModule,
   MatButtonModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
+  MatCheckboxModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 const MATERIAL_MODULES: any[] = [
   MatInputModule,
   MatButtonModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
+  MatCheckboxModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

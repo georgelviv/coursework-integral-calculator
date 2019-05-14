@@ -2,7 +2,9 @@ import {
   Component,
   OnDestroy,
   OnChanges,
-  Input
+  Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -18,6 +20,8 @@ export class ResultsOutputComponent implements OnDestroy, OnChanges {
 
   @Input() integral: Integral;
   @Input() integralOptions: IntegralOptions;
+
+  @Output() isComputingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public result: number;
   public isCounting = false;
@@ -39,7 +43,7 @@ export class ResultsOutputComponent implements OnDestroy, OnChanges {
   }
 
   private calculateIntegral(): void {
-    this.isCounting = true;
+    this.changeIsCounting(true);
 
     if (this.calculationSubscription) {
       this.calculationSubscription.unsubscribe();
@@ -49,8 +53,15 @@ export class ResultsOutputComponent implements OnDestroy, OnChanges {
       .$calcIntegral(this.integral, this.integralOptions)
       .subscribe((result) => {
         this.result = result;
-        this.isCounting = false;
+        this.changeIsCounting(false);
       });
+  }
+
+  private changeIsCounting(isCounting: boolean): void {
+    this.isCounting = isCounting;
+    setTimeout(() => {
+      this.isComputingChange.emit(this.isCounting);
+    });
   }
 
   public get displayResult(): boolean {

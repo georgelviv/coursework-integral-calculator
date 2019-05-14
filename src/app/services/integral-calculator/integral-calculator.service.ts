@@ -16,12 +16,18 @@ export class IntegralCalculatorService {
     integral: Integral,
     integralOptions: IntegralOptions
   ): Observable<number> {
-    const { n, method } = integralOptions;
+    const { n, method, isAsync } = integralOptions;
     return new Observable((observer) => {
+      // tslint:disable-next-line:no-console
+      console.time('calc');
       const cb = setTimeout(() => {
-        const result = this.getMethod(method)(integral, n);
-        observer.next(result);
-        observer.complete();
+        this.getMethod(method)(integral, n, isAsync)
+          .then((result) => {
+            observer.next(result);
+            observer.complete();
+            // tslint:disable-next-line:no-console
+            console.timeEnd('calc');
+          });
       });
 
       return () => {
@@ -30,7 +36,7 @@ export class IntegralCalculatorService {
     });
   }
 
-  private getMethod(method: IntegralMethod): (integral, n) => number {
+  private getMethod(method: IntegralMethod): (integral, n, isAsync) => Promise<number> {
     switch (method) {
       case IntegralMethod.RiemannSum:
         return this.calcRiemannSum.bind(this);
@@ -39,36 +45,48 @@ export class IntegralCalculatorService {
     }
   }
 
-  private calcRiemannSum(integral: Integral, n = 10000): number {
+  private async calcRiemannSum(
+    integral: Integral,
+    n = 10000,
+    isAsync = false
+  ): Promise<number> {
     const { from, to, formula } = integral;
 
     let sSum = 0;
     const step: number = (to - from) / n;
 
     for (let i = 0; i < n; i++) {
-      const x0: number = i * step;
-      const x1: number = (i + 1) * step;
-      const fx: number = this.countX(formula, x0);
-      const s: number = (x1 - x0) * fx;
-      sSum += s;
+      await this.delayCb(() => {
+        const x0: number = i * step;
+        const x1: number = (i + 1) * step;
+        const fx: number = this.countX(formula, x0);
+        const s: number = (x1 - x0) * fx;
+        sSum += s;
+      }, isAsync);
     }
 
     return sSum;
   }
 
-  private calcTrapezoidalRule(integral: Integral, n = 10000): number {
+  private async calcTrapezoidalRule(
+    integral: Integral,
+    n = 10000,
+    isAsync = false
+  ): Promise<number> {
     const { from, to, formula } = integral;
 
     let sSum = 0;
     const step: number = (to - from) / n;
 
     for (let i = 0; i < n; i++) {
-      const x0: number = i * step;
-      const x1: number = (i + 1) * step;
-      const fx0: number = this.countX(formula, x0);
-      const fx1: number = this.countX(formula, x1);
-      const s: number = (1 / 2) * step * (fx0 + fx1);
-      sSum += s;
+      await this.delayCb(() => {
+        const x0: number = i * step;
+        const x1: number = (i + 1) * step;
+        const fx0: number = this.countX(formula, x0);
+        const fx1: number = this.countX(formula, x1);
+        const s: number = (1 / 2) * step * (fx0 + fx1);
+        sSum += s;
+      }, isAsync);
     }
 
     return sSum;
@@ -76,5 +94,17 @@ export class IntegralCalculatorService {
 
   private countX(formula, x): number {
     return math.eval(formula, {x});
+  }
+
+  private delayCb(cb, isAsync = false): Promise<any> {
+    return new Promise((resolve) => {
+      if (isAsync) {
+        requestAnimationFrame(() => {
+          resolve(cb());
+        });
+      } else {
+        resolve(cb());
+      }
+    });
   }
 }

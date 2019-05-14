@@ -4,7 +4,7 @@
       Результат: {{result | number}}
     </div>
     <div *ngIf="isCounting">
-      Рахуємо
+      <mat-spinner [diameter]="25"></mat-spinner>
     </div>
   </div>
   <div class="results-output__details">

@@ -58,6 +58,10 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-checkbox
+      [(ngModel)]="isAsync" name="isAsync">
+      Асинхронно обчислити
+    </mat-checkbox>
   </div>
   <div class="user-input__submit-wrapper">
     <button

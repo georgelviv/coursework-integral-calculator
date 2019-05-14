@@ -5,4 +5,5 @@ import {
 export interface IntegralOptions {
   n: number;
   method: IntegralMethod;
+  isAsync: boolean;
 }

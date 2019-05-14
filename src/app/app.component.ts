@@ -15,6 +15,11 @@ export class AppComponent {
 
   public integral: Integral;
   public integralOptions: IntegralOptions;
+  public isComputing = false;
+
+  public onComputingChange(isComputing: boolean): void {
+    this.isComputing = isComputing;
+  }
 
   public onSubmit([integral, integralOptions]: [Integral, IntegralOptions]): void {
     this.integral = integral;

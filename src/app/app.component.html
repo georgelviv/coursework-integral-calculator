@@ -1,14 +1,18 @@
 <main class="app">
   <h1 class="app__title">
-    Наближений калькулятор визначеного інтегралу
+    Калькулятор визначеного інтегралу наближеним способом
   </h1>
   <mat-card class="app__input-wrapper">
-    <app-user-input (submit)="onSubmit($event)"></app-user-input>
+    <app-user-input
+      [isDisabled]="isComputing"
+      (submit)="onSubmit($event)">
+    </app-user-input>
   </mat-card>
   <mat-card>
     <app-results-output
       [integral]="integral"
-      [integralOptions]="integralOptions">
+      [integralOptions]="integralOptions"
+      (isComputingChange)="onComputingChange($event)">
     </app-results-output>
   </mat-card>
 </main>

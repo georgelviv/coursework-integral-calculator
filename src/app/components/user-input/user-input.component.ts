@@ -3,7 +3,8 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  OnInit
+  OnInit,
+  Input
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
@@ -22,6 +23,8 @@ import { ValidateFormula } from '@app/validators';
 })
 export class UserInputComponent implements OnInit {
 
+  @Input() isDisabled = false;
+
   @Output() public submit = new EventEmitter<[Integral, IntegralOptions]>();
 
   @ViewChild('userInputForm') form;
@@ -29,6 +32,7 @@ export class UserInputComponent implements OnInit {
   public from = '0';
   public to = '1';
   public n = '10';
+  public isAsync = false;
   public formulaFormControl: FormControl;
   public integralMethods = IntegralMethods;
   public integralMethod: IntegralMethod = IntegralMethod.RiemannSum;
@@ -58,13 +62,16 @@ export class UserInputComponent implements OnInit {
     const n: number = Number(this.n);
     const integralOptions: IntegralOptions = {
       n: Number(this.n),
-      method: this.integralMethod
+      method: this.integralMethod,
+      isAsync: this.isAsync
     };
 
     this.submit.emit([integral, integralOptions]);
   }
 
   public get isDisabledSubmit(): boolean {
-    return !this.form.valid || this.formulaFormControl.invalid;
+    return this.isDisabled ||
+      !this.form.valid ||
+      this.formulaFormControl.invalid;
   }
 }
