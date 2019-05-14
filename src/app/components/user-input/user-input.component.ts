@@ -39,7 +39,9 @@ export class UserInputComponent implements OnInit {
   };
 
   public ngOnInit(): void {
-    this.formulaFormControl = new FormControl('x', [
+    const defaultFormula = 'sin(x^ 2)  / sqrt(pi)';
+
+    this.formulaFormControl = new FormControl(defaultFormula, [
       Validators.required,
       ValidateFormula()
     ]);

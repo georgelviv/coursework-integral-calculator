@@ -5,6 +5,7 @@ import {
   IntegralMethod
 } from '@app/entities';
 import { Observable } from 'rxjs';
+import * as math from 'mathjs';
 
 @Injectable({
   providedIn: 'root'
@@ -74,12 +75,6 @@ export class IntegralCalculatorService {
   }
 
   private countX(formula, x): number {
-    const normalizedFormula: string = formula
-      .replace(/\s/gi, '')
-      .replace(/x/gi, x)
-      .replace(/0\/0/g, 0);
-
-    // tslint:disable-next-line:no-eval
-    return eval(normalizedFormula);
+    return math.eval(formula, {x});
   }
 }

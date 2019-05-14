@@ -1,0 +1,15 @@
+.results-output {
+  &__details {
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 100;
+  }
+  &__result {
+    min-height: 30px;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  &__details-p {
+    margin: 5px 0;
+  }
+}
