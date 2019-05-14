@@ -43,4 +43,14 @@
   &__integral-method-wrapper {
     width: 185px;
   }
+
+  @media only screen and (max-width: 650px) {
+    .user-input {
+      &__options-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+      }
+    }
+  }
 }
