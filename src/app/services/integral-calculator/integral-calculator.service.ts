@@ -7,6 +7,9 @@ import {
 import { Observable } from 'rxjs';
 import * as math from 'mathjs';
 
+const ASYNC_THRESHOLD = 1000;
+const ASYNC_STEP = ASYNC_THRESHOLD;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -54,15 +57,17 @@ export class IntegralCalculatorService {
 
     let sSum = 0;
     const step: number = (to - from) / n;
+    const useAsync = isAsync && n > ASYNC_THRESHOLD;
 
     for (let i = 0; i < n; i++) {
+      const asyncCalc = useAsync && i % ASYNC_STEP === 0;
       await this.delayCb(() => {
         const x0: number = i * step;
         const x1: number = (i + 1) * step;
         const fx: number = this.countX(formula, x0);
         const s: number = (x1 - x0) * fx;
         sSum += s;
-      }, isAsync);
+      }, asyncCalc);
     }
 
     return sSum;
@@ -77,8 +82,10 @@ export class IntegralCalculatorService {
 
     let sSum = 0;
     const step: number = (to - from) / n;
+    const useAsync = isAsync && n > ASYNC_THRESHOLD;
 
     for (let i = 0; i < n; i++) {
+      const asyncCalc = useAsync && i % ASYNC_STEP === 0;
       await this.delayCb(() => {
         const x0: number = i * step;
         const x1: number = (i + 1) * step;
@@ -86,7 +93,7 @@ export class IntegralCalculatorService {
         const fx1: number = this.countX(formula, x1);
         const s: number = (1 / 2) * step * (fx0 + fx1);
         sSum += s;
-      }, isAsync);
+      }, asyncCalc);
     }
 
     return sSum;

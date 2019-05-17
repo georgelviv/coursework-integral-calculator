@@ -32,7 +32,7 @@ export class UserInputComponent implements OnInit {
   public from = '0';
   public to = '1';
   public n = '10';
-  public isAsync = false;
+  public isAsync = true;
   public formulaFormControl: FormControl;
   public integralMethods = IntegralMethods;
   public integralMethod: IntegralMethod = IntegralMethod.RiemannSum;
