@@ -1,6 +1,6 @@
 {
-  "name": "integralCalculator",
-  "short_name": "integralCalculator",
+  "name": "Integral Calculator",
+  "short_name": "Integral Calculator",
   "theme_color": "#3f51b5",
   "background_color": "#fff",
   "display": "standalone",
