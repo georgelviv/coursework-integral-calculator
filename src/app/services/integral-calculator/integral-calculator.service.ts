@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import * as math from 'mathjs';
 
-const ASYNC_THRESHOLD = 1000;
+const ASYNC_THRESHOLD = 500;
 const ASYNC_STEP = ASYNC_THRESHOLD;
 
 @Injectable({
